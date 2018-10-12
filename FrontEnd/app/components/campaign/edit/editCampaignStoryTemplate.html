@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="form-group col-md-6 col-sm-6">
+        <label>ویدئوی کمپین </label>
+        <div class="msh-break-word">
+            برای تبدیل ویدئو به فرمت MP4 و کوچک کردن حجم آن می توانید از لینک زیر استفاده کنید:
+            <a href="http://www.freemake.com/free_video_converter/" target="_blank">http://www.freemake.com/free_video_converter/</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="story-elements-wrap col-xs-10 col-xs-offset-1">
+        <div id="elm{{$id}}" ng-repeat="stElm in campaignStoryElements" class="row story-element" ng-class="{'edit-mode': stElm.editMode,'view-mode':!stElm.editMode}">
+            <!-- Text Element -->
+            <div class="editor" ng-if="(stElm.type == 'text')">
+                <ng-wig ng-model="stElm.editorText" on-paste="onPaste($event, pasteContent)" buttons="formats, bold, italic, list1, list2, link"></ng-wig>
+                <div class="edit-buttons">
+                    <a class="btn btn-success " ng-click="saveTextElm($index) ">ذخیره</a>
+                    <a class="btn btn-danger " ng-click="cancelTextEdit($index) ">انصراف</a>
+                </div>
+            </div>
+            <div class="text-viewer-wrap" ng-if="(stElm.type == 'text')">
+                <div ng-bind-html="stElm.text" class="text-viewer">
+                </div>
+            </div>
+            <!-- End of Text Element-->
+            <!-- Image Element -->
+            <div class="" ng-if="stElm.type == 'image'">
+                <div class="form-group image-editor-container" ng-class="{'edit-mode': stElm.editMode==true}">
+
+                    <div ng-if="stElm.editMode">
+                        <div img-crop class="img-crop" area-min-size="{width:285, height:200}" image="stElm.newImage || getImageByIndex($index)"
+                            result-image-format="image/jpeg" result-image-ratio="1" result-image-quality=".75" result-image="stElm.imageModel">
+                        </div>
+
+                        <div ng-show="stElm.imageModel">
+                            <label class="btn btn-primary btn-image-input">	انتخاب تصویر 
+                        <input ng-disabled="stElm.saveWaiting" type="file" class="file-input" trigger-click="{{stElm.triggerClick}}" img-file-input file-input-loaded="fileInputLoaded($index,imageData)"></label>
+
+                            <button type="button" class="btn btn-success btn-bez btn-bez-xs" ng-class="{waiting:stElm.saveWaiting}" ng-click="saveImageEdit($index)">ذخیره</button>
+                            <a class="cancel btn btn-danger" ng-disabled="stElm.saveWaiting" ng-click="cancelImageEdit($index)">انصراف</a>
+                        </div>
+                    </div>
+
+                    <img ng-src="{{getImageByIndex($index)}}" ng-show="!stElm.editMode" class="center-block img-responsive">
+                </div>
+            </div>
+            <!-- End of Image Element -->
+            <!-- Shared Components -->
+            <!--NOTE: We used ng-show instead of ng-if here because we don't want to create new scope (ng-if does) 
+    because this messes with $id that we need for $anchorScroll to work correctly-->
+            <div class="initialized-story-controls" ng-show="stElm.type">
+                <button type="button" class="btn btn-primary btn-edit" ng-show="stElm.editMode!=true" ng-click="enterEditMode($index)">{{'_ui_key_Edit' | xlat}}
+                 <i class="fa fa-edit" aria-hidden="true"></i>
+            </button>
+                <button type="button" class="btn btn-primary btn-remove" ng-show="stElm.editMode!=true" ng-click="showRemoveBox=true">حذف  
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+                <div class="remove-box" ng-show="showRemoveBox">
+                    <p>
+                        آیا برای حذف مطمئن هستید
+                    </p>
+                    <a class="btn btn-danger" ng-click="removeStoryElement($index)">بلی</a>
+                    <a class="btn btn-default" ng-click="showRemoveBox=false">خیر</a>
+                </div>
+                <div class="move-buttons">
+                    <a class="btn btn-default btn-move-up" ng-hide="isFirstInitializedSt($index)" ng-click="listElmUp($index, $id)">
+                        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                    </a>
+                    <a class="btn btn-default btn-move-down" ng-hide="isLastInitializedSt($index)" ng-click="listElmDown($index, $id)">
+                        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="row empty-story-controls" ng-if="!stElm.type">
+                <label class="btn col-sm-6" ng-click="initializeStElm($index,'text')">
+                    <i class="fa fa-plus" area-hidden="true"></i> اضافه کردن متن
+                </label>
+                <label class="btn col-sm-6"> <i class="fa fa-plus" area-hidden="true"></i>
+                	اضافه کردن تصویر
+                        <input type="file" class="file-input" trigger-click="{{stElm.triggerClick}}" img-file-input file-input-loaded="initializeStElm($index,'image',imageData)"></label>
+            </div>
+            <!-- End of Shared Components -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-3 col-sm-4 reward-wrap" ng-repeat="reward in rewardQueryInstance">
+        <a class="btn btn-primary btn-edit" ng-click="addOrEditReward($index)">ویرایش</a>
+        <a class="btn btn-primary btn-remove" ng-click="showRemoveBox=true">حذف</a>
+        <div class="reward-inner" reward-template="" reward="reward" hide-n-claimed="true"></div>
+        <div class="remove-box" ng-show="showRemoveBox">
+            <p>
+                آیا برای حذف مطمئن هستید
+            </p>
+            <a class="btn btn-danger" ng-click="removeReward($index)">بلی</a>
+            <a class="btn btn-default" ng-click="showRemoveBox=false">خیر</a>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-4 reward-wrap">
+        <a class="btn btn-primary" ng-click="addOrEditReward()">اضافه کردن پاداش</a>
+    </div>
+</div>

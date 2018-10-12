@@ -1,0 +1,38 @@
+<div ng-class="{'slideshow-open':isSlideShowOpen}">
+    <!--<div class="row carousel-container" home-carousel="" interval="carouselInterval"></div>-->
+                <!--<div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <img class="img-responsive" src="assets/img/dropbox.png" />
+            </div>
+        </div>-->
+    <div class="first-section create-camp-landing container-fluid">
+        <div class="row">
+            <div class="col-xs-12 create-camp-wrap">
+                <ul class="fa-ul">
+                    <li>اهل نوآوری و خلاقیت هستین؟<i class="fa fa-square"></i></li>
+                    <li>می خواین یه محصول جالب تولید کنین؟<i class="fa fa-square"></i></li>
+                    <li>برای حمایت از محیط زیست ایده دارین؟<i class="fa fa-square"></i></li>
+                    <li>فکری دارید که می تونه به سلامت جامعه کمک کنه یا درد بیماران رو کم کنه؟<i class="fa fa-square"></i></li>
+                    <li>می خواین اپلیکیشن یا وبسایت بسازید اما سرمایه ندارین؟<i class="fa fa-square"></i></li>
+                </ul>
+                <div class="text-center">
+
+                <a href="/create-campaign" class="btn btn-default create-campaign" ng-bind-html="'_ui_key_CreateCampaignBanner' | xlat"></a>
+                <p ng-bind="'_ui_key_BavarKonidMishavad' | xlat"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="campaigns" class="second-section">
+
+        <div id="active-campaigns">
+            <div cbp-grid-gallery="" campaigns="campaigns" on-close="$emit('SlideShowClosedEvent')" on-open="$emit('SlideShowOpenedEvent')">
+            </div>
+
+            <button class="btn btn-inverse" ng-if="nextPageLink" ng-click="loadNextPage()">نمایش بیشتر ...</button>
+        </div>
+    </div>
+    <div class="third-section text-center">
+        <p>سایت یا وبلاگ دارید؟ می خواید پیام می شود رو به دیگران برسونید؟</p>
+    </div>
+</div>

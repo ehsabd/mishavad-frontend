@@ -1,0 +1,21 @@
+<div class="post-view" ng-mouseup="preventLargeSel()">
+    <p id="slug" ng-bind="post.slug"></p>
+    <!--TODO: fix ng-style-->
+		<div class="image-wrap" ng-style="{background: 'linear-gradient(90deg,rgba(255,255,255,0.9),rgba(255,255,255,.9)),url('.concat(post.image,')'),'background-size': '100%'}">
+<!--
+<div class="entry-meta">
+			<span class="entry-date"><a href="" rel="bookmark"><time class="entry-date" datetime="1395/3/4 9:27:34">4 خرداد 1395</time></a></span> <span class="byline"><span class="author vcard"><a class="url fn n" href="http://learnpsychology.ir/ehsabd/author/ehsabd/" rel="author">احسان عبدخدایی</a></span></span>			<span class="comments-link"><a href="" class="">2 دیدگاه</a></span>
+			<span class="edit-link"><a class="post-edit-link" href="">ویرایش</a></span>		
+            </div>-->
+        <div class="post-image">
+            <img ng-src="{{post.image}}" class="img-responsive" />
+        </div>
+		</div>
+        <div class="post-note" ng-bind-html="post.footNote | linky"></div>
+        <h1 ng-bind="post.title"></h1>
+        <div class="post-content" ng-bind-html="post.content.replace(post.title,'')">
+        </div>
+        <div class="tags">
+            <span ng-repeat="t in post.tags">{{t}}</span>
+        </div>
+</div>

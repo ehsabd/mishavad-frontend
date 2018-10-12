@@ -1,0 +1,36 @@
+﻿<form>
+<div class="modal-header">
+            <h3 class="modal-title">ورود به حساب کاربری</h3>
+</div>
+<div class="modal-body">
+                    <div class="login-wrapper container-fluid" >
+                        <div class="form-group">
+                                <label>{{'_ui_key_Email' | xlat}}</label>
+                                <div class="right-inner-addon">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    <input type="text" class="form-control" ng-model="loginEmail" placeholder="Email" value="">
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{'_ui_key_Password' | xlat}}</label>
+                            <input type="password" class="form-control" ng-model="loginPassword" placeholder="Password">
+                        </div>
+                        
+                        <div uib-alert class="alert-danger" ng-bind="alertMessage | xlat" ng-if="showAlert"></div>
+                    </div>
+                    <!--               
+                   <p>
+                        @Html.ActionLink(UiManager.GetUiText("_ui_key_RegisterAsaNewUser"), "Register", null , new {@class = "modal-link"})
+                    </p>
+                    @* Enable this once you have account confirmation enabled for password reset functionality
+                        <p>
+                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                        </p>*@
+                    -->
+                    <!--TODO: correct external login and implement it correctly-->
+</div>
+
+<div class="modal-footer">
+     <button class="login-btn btn btn-default btn-bez btn-bez-md" type="submit" ng-class="{'waiting': isWaiting}" ng-click="submitLogin()" >{{'_ui_key_LogIn' | xlat}}</button>
+</div>
+</form>

@@ -1,0 +1,24 @@
+<div class="blog-view" scrolly="loadNextPage()">
+
+    <div ng-repeat="p in posts" class="post row">
+        <div class="col-sm-4">
+            <a href="{{p.link}}">
+                <div class="post-image">
+                    
+                  <img ng-src="{{p.image}}" class="img-responsive" />
+
+                    
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-8 post-excerpt">
+           <h1 class="h3"> <a href="{{p.link}}" ng-bind="p.title"></a></h1>
+            <div ng-bind-html="p.excerpt.replace(p.title,'') | htmlToPlaintext"> </div>
+            <div class="gradient-overlay"></div>
+        </div>
+        <a class="btn btn-success post-link" href="{{p.link}}">ادامه مطلب</a>
+    </div>
+    <div ng-show="isLoading">
+    لطفا چند لحظه صبر کنید...
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="row">  
+    <div class="col-xs-12">
+        <form ng-submit="savePost()">
+            <div class="form-group">
+                <label>عنوان</label>
+                <input type="text" class="form-control" ng-model="postInst.title">
+            </div>
+        
+      
+            <div class="form-group">
+                <label>متن</label>
+                <ng-wig ng-model="postInst.content" on-paste="onPaste($event, pasteContent)" buttons="formats, bold, italic, list1, list2, link"></ng-wig>
+                
+            </div>
+       
+     
+            <div class="form-group">
+                <label>تگ ها</label>
+                <input type="text" class="form-control" ng-model="postInst.tags">
+            </div>
+
+             <div class="form-group">
+                <label>یادداشت</label>
+                <textarea type="text" class="form-control" ng-model="postInst.footNote"></textarea>
+            </div>
+
+             <div class="form-group">
+                <label>وضعیت</label>
+                <input type="text" class="form-control" ng-model="postInst.status">
+            </div>
+
+            <div class="form-group">
+                <label>ImageFileServerId</label>
+                <input type="text" class="form-control" ng-model="postInst.imageFileServerId">
+            </div>
+
+            <div class="form-group">
+                <label>ImageFilePath</label>
+                <input dir="ltr" type="text" class="form-control" ng-model="postInst.imageFilePath">
+            </div>
+
+            <button type="submit" class="btn btn-success">ارسال</button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div uib-alert class="alert-success" ng-show="isSaved">پست ایجاد شد
+        </div>
+    </div>
+</div>

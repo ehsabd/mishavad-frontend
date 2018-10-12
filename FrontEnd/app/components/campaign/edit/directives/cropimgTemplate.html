@@ -1,0 +1,24 @@
+<label class="btn btn-primary btn-image-input">	انتخاب تصویر 
+            <input type="file" class="cropit-image-input" style="visibility: hidden;width:50px;height:0px">
+</label>
+<button type="button" class="save btn btn-success btn-bez btn-bez-xs" ng-class="{waiting:isWaiting}">ذخیره</button>
+<a class="cancel btn btn-danger " ng-click="cancel()">انصراف</a>
+<div class="image-toolbar">
+    <div class="image-zoom row text-right" style="direction: ltr; width: 300px;">
+        <div class="col-xs-4" style="padding: 0;    white-space: nowrap;">
+        <label class="image-zoom-label" style="direction:rtl; display: block">بزرگ نمایی (Zoom):</label>
+        </div>
+        <div class="col-xs-8">
+        <span class="fa fa-image" style="vertical-align: middle;"></span>
+        <input type="range" value="0" class="cropit-image-zoom-input" style="vertical-align: middle;display: inline-block;width: 110px;margin: 3px;">
+        <span class="fa fa-image fa-2x" style="vertical-align: middle;"></span>
+        </div>
+    </div>
+    <div class="image-size">
+        <label class="image-size-label" style="direction: rtl">اندازه تصویر:</label>
+        <a class="btn btn-primary" ng-click="$broadcast('CropChangeSizeEvent',{width:320,height:240})">کوچک</a>
+        <a class="btn btn-primary" ng-click="$broadcast('CropChangeSizeEvent',{width:460,height:308})">متوسط</a>
+        <a class="btn btn-primary" ng-click="$broadcast('CropChangeSizeEvent',{width:800,height:600})">بزرگ</a>
+    </div>
+</div>
+<div class="cropit-preview"></div>

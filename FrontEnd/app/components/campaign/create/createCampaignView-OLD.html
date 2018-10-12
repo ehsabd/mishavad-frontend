@@ -1,0 +1,63 @@
+﻿<div class="create-camp-login well" ng-if="isLoggedIn==false">
+    <p ng-bind-html="'_ui_key_CreateCampaignRegisterNotice' | xlat">
+    </p>
+    <p>
+        همین حالا در سایت
+        <a ng-click="openRegister();">
+     عضو شوید
+     </a> و اگر قبلا عضو شده اید به حساب کاربری خود
+        <a ng-click="openLogin();">
+        وارد شوید
+      </a>
+    </p>
+</div>
+<div ng-if="isLoggedIn" class="container" ng-controller="CreateCampaignController">
+    <form ng-show="!success" class="create-campaign">
+        <div class="row page-header">
+            <h2>کمپین خود را شروع کنید</h2>
+            <p>خلاقیت و کارآفرینی را با یک کمپین شروع کنید.</p>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label ng-bind="'_ui_key_CampaignTitle' | xlat"></label>
+                <input class="form-control" ng-model="campaign.title">
+            </div>
+            <div class="col-sm-4 hint">
+                <p>عنوان کمپین اولین چیزی است که به چشم می آید. در نگاه اول نظر مخاطبان را جلب کنید!</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label ng-bind="'_ui_key_TargetFund' | xlat"></label>
+                <input class="form-control" ng-model="campaign.targetFund" placeholder="مبلغ بر حسب تومان" num-int="11" num-fract="0" num-thousand="true"
+                    awnum>
+            </div>
+            <div class="col-sm-4 hint">
+                <p>هزینه مورد نیاز کمپین خود را اینجا وارد کنید. نگران نباشید می توانید بعدا این اطلاعات را ویرایش کنید</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label ng-bind="'_ui_key_Tagline' | xlat"></label>
+                <textarea class="form-control" ng-model="campaign.tagline"></textarea>
+            </div>
+            <div class="col-sm-4 hint">
+                <br>
+                <p>این جمله در صفحه اول *می شود* می آید. چیزی را درج کنید که شایسته صفحه اول باشد</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <button class="btn btn-success btn-bez btn-bez-sm" ng-class="{'waiting': isWaiting}" ng-click="createCampaign()" ng-bind-html="'_ui_key_CreateCampaign' | xlat">
+                </button>
+            </div>
+        </div>
+
+    </form>
+    <div class="row">
+        <div class="col-sm-4">
+            <div uib-alert class="alert" ng-class="'alert-'.concat((success)?'success':'danger')" ng-show="showAlert">{{alertMessage}}</div>
+        </div>
+    </div>
+
+</div>

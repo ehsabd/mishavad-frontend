@@ -1,0 +1,55 @@
+<div class="well" ng-if="!isLoggedIn">
+    <p>
+        این صفحه اعضاء است شما هنوز عضو نشده اید
+    </p>
+    <a ng-click="">
+    همین حالا در می شود عضو شوید</a>
+</div>
+<div ng-if="isLoggedIn" class="container">
+    <div class="row user-name">
+        <h2>{{userinfo.firstName + ' ' + userinfo.lastName}}</h2>
+    </div>
+    <uib-tabset>
+        <uib-tab index="0" heading="کمپین ها">
+            <h3>کمپین های ایجاد شده توسط من</h3>
+            <div class="row user-campaign" ng-repeat="camp in userCampaigns">
+                <div class="col-sm-4">
+                    <h4>
+                        <a href="{{'/campaigns/' + camp.id+'/edit'}}" ng-bind="camp.title"></a>
+                    </h4>
+                    <a>
+                        <div class="user-camp-img">
+                            <img class="img-responsive" ng-src="{{camp.thumbnail || '/FrontEnd/assets/img/default-thumbnail.png'}}">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-4">
+
+                    {{camp.tagline}}
+                </div>
+
+                <div class="col-sm-4 controls">
+
+                    <span ng-repeat="s in camp.status" class="label label-default status" ng-class="s.toLowerCase()" ng-bind="('_ui_key_Status'+s) | xlat">
+            </span>
+                    <div ng-if="!camp.isApproved">
+                        <a class="btn btn-danger btn-remove" ng-click="showRemoveBox=true">
+                حذف کمپین
+                <i class="fa fa-trash" aria-hidden="true"></i>  </a>
+                        <div class="remove-box" ng-show="showRemoveBox">
+                            <p>
+                                آیا برای حذف کمپین
+                                <strong>
+                '{{camp.title}}'
+                </strong> مطمئن هستید
+                            </p>
+                            <a class="btn btn-danger" ng-click="removeCampaign($index)">بلی</a>
+                            <a class="btn btn-default" ng-click="showRemoveBox=false">خیر</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </uib-tab>
+    </uib-tabset>
+
+</div>

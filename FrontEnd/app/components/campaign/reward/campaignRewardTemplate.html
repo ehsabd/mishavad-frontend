@@ -1,0 +1,18 @@
+<div ng-if="!hideRewardImage" class="row reward-img">
+    <div class="col-md-12">
+        <img class="img-responsive rewards" ng-src="{{reward.base64Image || reward.imagePath}}">
+    </div>
+</div>
+<div class="h3 amount">{{reward.amount| seprate}}
+    <label ng-bind="'_ui_key_Toman'|xlat"></label>
+</div>
+<h3 class="">{{reward.title}}</h3>
+<p class="">{{reward.description}}</p>
+<p class=""><label ng-bind="'reward_accept_time_fa'|xlat"></label> {{reward.estimatedDeliveryDateUtc | pDate}}
+</p>
+<p class="" ng-if="!hideNClaimed">
+    <span class="label label-info">{{reward.nClaimed}}</span>
+    <label ng-bind="'reward_accept_count_fa'|xlat"></label>
+</p>
+<p class=""><label ng-bind="'reward_Stock_fa'|xlat"></label>{{reward.nAvailable}} <label ng-bind="'reward_Stock_count_unit_fa'|xlat"></label>
+</p>

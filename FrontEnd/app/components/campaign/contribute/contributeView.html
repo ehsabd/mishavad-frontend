@@ -1,0 +1,123 @@
+<div id="contribute-page" class="container" ng-show="campaignRewards">
+    <div class="row page-header">
+        <h2>حمایت از کمپین</h2>
+        <p ng-bind-html="'_ui_key_ContributeStepsNote' | xlat"></p>
+    </div>
+    <div class="steps-container">
+        <div class="row step">
+            <span class="stepnumber"></span>
+            <span class="dummy"></span>
+            <h3>دوست دارید پروژه آفرین چگونه از شما تشکر کند؟</h3>
+            <div class="rewards-container">
+                <div class="reward-wrap col-sm-3 col-xs-6">
+                    <div class="no-reward" ng-click="selectReward('contribute-only')" ng-class="{'reward-selected':contributeOnly}">
+                        <p>فقط می خواهم حمایت کنم</p>
+                        <div class="row">
+                            <div class="form-group col-sm-10 amount" ng-show="contributeOnly">
+                                <label class="ng-binding">میزان حمایت</label>
+                                <input class="form-control" ng-model="giftFundAmount" placeholder="مبلغ بر حسب تومان" num-int="11" num-fract="0" num-thousand="true"
+                                    awnum="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reward-wrap col-sm-3 col-xs-6" ng-click="selectReward($index)" ng-repeat="campaignReward in campaignRewards">
+                    <div ng-class="{'reward-selected': campaignReward.id==selectedRewardId}" class="reward" reward="campaignReward" reward-template=""
+                        show-reward-image="false"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row step">
+            <span class="stepnumber"></span>
+            <span class="dummy"></span>
+            <h3>اگر کمپین موفق نشد؟!</h3>
+            <p class="condensed">در صورتی که کمپین موفق نشد ما کمک شما را به حساب شما در می شود باز می گردانیم. برای این کار لازم است
+                <strong>
+                ایمیل 
+                </strong> شما را داشته باشیم</p>
+            
+            <div class="row">
+                <div class="form-group col-lg-3 col-md-4 col-sm-6">
+                    <label>{{'_ui_key_Email' | xlat}}</label>
+                    <div class="right-inner-addon">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <input type="text" class="form-control" ng-model="email" placeholder="Email" value="">
+                    </div>
+                </div>
+                <!--NOTE: This could be added in future but along with other considerations
+                <div class="form-group col-sm-6">
+                    <label>{{'_ui_key_Mobile' | xlat}}</label>
+                    <div class="right-inner-addon">
+                        <i class="fa fa-2x fa-mobile" aria-hidden="true"></i>
+                        <input type="text" class="form-control" ng-model="mobile" placeholder="موبایل" value="">
+                    </div>
+                </div>-->
+            </div>
+            <div class="form-group">
+                <p>
+در صورتی که تمایل به بازگشت پول خود ندارید و نمی خواهید ایمیل خود را در اختیار قرار دهید ایمیل anon@mishavad.ir را در ایمیل وارد کنید.
+شما با وارد کردن این ایمیل شرایط مربوط به 
+<strong>
+    کمک کاملا گمنام
+</strong>
+را می پذیرید </p>
+               <!-- <div class="checkbox col-xs-offset-1">
+                    <input ng-model="noMobileEmail" type="checkbox">
+                    <label class="condensed">نمی خواهم ایمیل خود را در اختیار قرار دهم و در صورت عدم موفقیت کمپین هم تقاضای بازگشت پول خود را ندارم</label>
+                </div> -->
+            </div>
+        </div>
+        <div class="row step">
+            <span class="stepnumber"></span>
+            <span class="dummy"></span>
+            <h3>دوست دارید نام شما به عنوان حامی ثبت شود؟</h3>
+
+            <div credit-buttons class="btn-group btn-group-justified hidden-xs">
+            </div>
+            <div credit-buttons class="btn-group-vertical visible-xs">
+            </div>
+
+            <div class="contributer-name" ng-class="{'expanded': creditType=='realname' || creditType=='nickname'}">
+                <div class="row realname" ng-if="creditType=='realname'">
+                    <div class="col-sm-4 col-xs-6 form-group">
+                        <label>{{'_ui_key_FirstName' | xlat}}</label>
+                        <input type="text" class="form-control" ng-model="firstName">
+                    </div>
+                    <div class="col-sm-4 col-xs-6 form-group">
+                        <label>{{'_ui_key_LastName' | xlat}}</label>
+                        <input type="text" class="form-control" ng-model="lastName">
+                    </div>
+                </div>
+                <div class="row nickname" ng-if="creditType=='nickname'">
+                    <div class="form-group col-sm-4">
+                        <label>{{'_ui_key_NickName' | xlat}}</label>
+                        <div class="right-inner-addon">
+                            <i class="fa fa-asterisk" aria-hidden="true"></i>
+                            <input type="text" class="form-control" ng-model="nickName" placeholder="" value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row step payment">
+            <span class="stepnumber"></span>
+            <span class="dummy"></span>
+            <h3>پرداخت</h3>
+            <p>شیوه پرداخت را انتخاب کنید:</p>
+
+            <div payment-buttons class="btn-group btn-group-justified hidden-xs">
+            </div>
+            <div payment-buttons class="btn-group-vertical visible-xs">
+            </div>
+            <div class="col-sm-2 div-fade" ng-show="payMethod">
+                <p class="visible-xs"></p>
+                <button class="pay-btn btn btn-submit" type="submit" ng-class="{'waiting': isWaiting}" ng-click="submitPay()">{{'_ui_key_Payment' | xlat}}</button>
+            </div>
+
+
+
+        </div>
+
+    </div>

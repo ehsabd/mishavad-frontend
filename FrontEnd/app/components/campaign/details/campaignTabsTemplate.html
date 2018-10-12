@@ -1,0 +1,39 @@
+<uib-tabset active="active">
+    <uib-tab heading="{{'tabs_item_description_fa'|xlat}}">
+        <div class="story" ng-class="{'scroll-container':fixedHeight}">
+            <div ng-class="{'scroll-content':fixedHeight}">
+                <div style="direction:rtl">
+                    <div ng-repeat="stElm in campaign.storyElements" ng-bind-html="stElm.text">
+                    </div>
+                </div>
+                <div style="height:3em"></div>
+            </div>
+            <div ng-if="fixedHeight && !Modernizr.touch" class="scroll-mask"></div>
+        </div>
+    </uib-tab>
+    <uib-tab heading="{{'tabs_item_update_fa'| xlat}}">
+        <p>details2</p>
+    </uib-tab>
+    <uib-tab heading="{{'tabs_item_backers_fa'|xlat}}">
+        <p>details3</p>
+    </uib-tab>
+    <!--TODO (C): Fix gallery tab according to notes in Gannt
+    <uib-tab heading="{{'_ui_key_GalleryTabHeading'|xlat}}">
+       
+    </uib-tab>
+    -->
+    <uib-tab ng-if="campaignRewards">
+        <uib-tab-heading>
+            <div ng-bind-html="'_ui_key_RewardsTab'|xlat"></div>
+        </uib-tab-heading>
+        <div class="rewards-container scroll-container">
+            <div class="scroll-content">
+                <div class="reward-wrap col-xs-6" ng-repeat="campaignReward in campaignRewards">
+                    <div class="reward" reward="campaignReward" reward-template="" hide-reward-image="true"></div>
+                </div>
+                <div style="height:3em"></div>
+            </div>
+            <div ng-if="!Modernizr.touch" class="scroll-mask"></div>
+        </div>
+    </uib-tab>
+</uib-tabset>

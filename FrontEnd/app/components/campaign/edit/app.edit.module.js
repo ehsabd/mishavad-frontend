@@ -1,0 +1,1 @@
+angular.module('editCampaignModule', ['campaignResourceModule', 'uidataModule', 'ngWig', 'ngSanitize', 'ngImgCrop'])

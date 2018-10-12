@@ -1,0 +1,148 @@
+<!--NOTE: We don't need a <form> here  because we must then deal with form submission with enter key and other things-->
+    <form name="basicForm">
+    <div id="new-camp-header" class="row" ng-if="newCampaign">
+        <p ng-show="pageProps.campaignId">
+            کمپین 
+            '{{campaignResInstance.title}}'
+            ایجاد شد. شما می توانید الآن یا بعدا مشخصات آن را کامل کنید.
+        </p>
+        <h2>کمپین خود را
+            <span ng-hide="pageProps.campaignId">
+                شروع کنید
+            </span>
+            <span class="mishavad" ng-show="pageProps.campaignId">
+                کامل کنید
+            </span>
+        </h2>
+        <p ng-hide="pageProps.campaignId">خلاقیت و کارآفرینی را با یک کمپین شروع کنید.</p>
+    </div>
+    <div class="very-basic-details">
+        <div class="row field-row">
+            <div class="form-group col-md-6 col-sm-6">
+                <label> عنوان کمپین </label>
+                <input type="text"  class="form-control" ng-model="campaignResInstance.title" />
+            </div>
+        </div>
+        <div class="row field-row">
+            <div class="form-group col-md-6 col-sm-6">
+                <label> مبلغی که می خواهید تأمین شود </label>
+                <input class="form-control" ng-model="campaignResInstance.targetFund" placeholder="مبلغ بر حسب تومان" num-int="11" num-fract="0" num-thousand="true"
+                    awnum>
+            </div>
+        </div>
+        <div class="row field-row">
+            <div class="form-group col-md-4 col-sm-5 col-xs-8" id="rowTagline" ng-class="{'has-error shake' : submitted && form.Tagline.$invalid}">
+                <label>یک جمله زیبا برای کمپین شما در صفحه اول می شود </label>
+                <textarea ng-required="" rows="4" id="Tagline" maxlength="100" required class="form-control" ng-model="campaignResInstance.tagline"></textarea>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4" class="tagline-length">
+                تعداد کاراکتر باقیمانده: {{100-campaignResInstance.tagline.length}}
+            </div>
+        </div>
+    </div>
+    <div class="row btn-create-wrap" ng-show="newCampaign && !pageProps.campaignId">
+        <div class="form-group col-sm-4">
+            <button class="btn btn-success btn-bez btn-bez-sm" ng-class="{'waiting': campBasicWaiting}" ng-click="updateCampBasic()" ng-bind-html="'_ui_key_CreateCampaign' | xlat">
+            </button>
+        </div>
+    </div>
+    <div class="basic-details" ng-if="pageProps.campaignId">
+        
+        <div class="row field-row">
+            <!--NOTE:We don't need save/cancel buttons here. This field is just like
+            other fields they will be updated by clicking the universal save button in the buttom of the page 
+                NOTE2: But we may need them to cancel editing or cropping for a better UX
+            -->
+            <div class="form-group image-editor-container col-sm-6" ng-class="{'edit-mode': campaignResInstance.thumbCropMode==true}">
+                <label>تصویر کمپین <span class="fa fa-question-circle fa-lg"></span> </label>
+                  
+                <div img-crop class="img-crop" area-min-size="{width:285, height:200}"  image="campaignResInstance.newThumbnail || campaignResInstance.thumbnail" result-image-format="image/jpeg" result-image-ratio="1"
+                result-image-quality=".8" result-image="campaignResInstance.base64Thumbnail">
+                    
+                </div>
+             
+                 <label class="btn btn-primary btn-image-input">	تغییر تصویر 
+                    <input type="file" class="file-input" img-file-input file-input-loaded="fileInputLoaded(imageData)" ></label>
+                    <!--TODO: Add this and make cropper not show cropper box by default
+                <button type="button" class="btn btn-primary btn-edit-img" ng-hide="campaignResInstance.thumbCropMode" ng-click="enterCropThumb()"> <i class="fa fa-crop" aria-hidden="true"></i> برش تصویر </button>-->
+            </div>
+        </div>
+        <div class="row field-row">
+            <div class="form-group col-md-6 col-sm-6">
+                <label>نوع کمپین: </label>
+                <select class="form-control" ng-model="campaignResInstance.categoryId" class="form-control" convert-to-number>
+                                <option ng-repeat="option in campaignType.availableOptions" value="{{option.id}}">{{option.name}}</option>
+                            </select>
+            </div>
+        </div>
+        <div class="row field-row">
+            <div class="form-group col-md-6 col-sm-6">
+                <label>مرحله کمپین: </label>
+                <select class="form-control" ng-model="campaignResInstance.projectStageId" class="form-control" convert-to-number>
+                                <option ng-repeat="option in campaignLevel.availableOptions"  value="{{option.id}}">{{option.name}}</option>
+                            </select>
+            </div>
+        </div>
+        <div class="row field-row">
+            <div class="form-group col-md-12 col-sm-12">
+                <label>تامین بودجه کمپین چند روز مهلت داشته باشد؟ </label>
+                <div class="btn-group">
+                    <label class="btn btn-primary" ng-model="campaignResInstance.totalDays" uib-btn-radio="90">۹۰ روز</label>
+                    <label class="btn btn-primary" ng-model="campaignResInstance.totalDays" uib-btn-radio="60">۶۰ روز</label>
+                    <label class="btn btn-primary" ng-model="campaignResInstance.totalDays" uib-btn-radio="30">۳۰ روز</label>
+                </div>
+            </div>
+        </div>
+        <div class="row field-row">
+            <div class="form-group col-md-6 col-sm-6">
+                <label>تگ ها <span class="fa fa-question-circle fa-lg"></span> </label>
+                <!--TODO add typeahead attr and fix corresponding populateTags in controller-->
+                <input type="text" ng-change="populateTags()" ng-model="campaignResInstance._newTag" ng-keypress="$event.which === 13 && addNewTag()" class="form-control new-tag">
+                <a ng-click="addNewTag()">اضافه کردن</a>
+                <div class="tags-container">
+                    <div class="camp-tag" ng-repeat="data in campaignResInstance.tags track by $index"> {{data}}<span class="fa fa-times-circle" ng-click="removeTag($index)"></span> </div>
+                </div>
+            </div>
+        </div>
+        <div class="row field-row">
+            <div class="form-group col-md-6 col-sm-6">
+                <div class="row">
+                    <div class="col-xs-12">    
+                        <label>آیا این کمپین توسط سازمان خاصی تأیید شده است؟ </label>
+                        <div class="btn-group">
+                            <label class="btn btn-success" ng-model="campaignResInstance.verifiedByOrg" uib-btn-radio="true">بله </label>
+                            <label class="btn btn-danger" ng-model="campaignResInstance.verifiedByOrg" uib-btn-radio="false">خیر</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">    
+                        <label>توضیحات در مورد تاییده سازمان </label>
+                        <div>
+                            <textarea class="form-control" ng-model="campaignResInstance.verificationDescription"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row field-row">
+            <div class="form-group col-lg-3 col-md-4 col-sm-6">
+                <label>شما در کدام استان مستقر هستید؟ </label>
+                <div>
+                    <select class="form-control" ng-model="campaignResInstance.province">
+                                <option ng-repeat="(option,value) in (campaignProvince.availableOptions | groupBy:'provinceName') "  ng-selected="option=='campaignResInstance.cityId'" value="{{option}}">{{option}}{{alert(0)}}</option>       
+            </select>
+                </div>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6">
+                <label>کدام شهر مستقر هستید؟</label>
+                <div>
+                    <select class="form-control" ng-model="campaignResInstance.cityId" convert-to-number>
+                                <option ng-repeat="option in campaignCity.availableOptions" ng-if="option != null"  value="{{option.id}}">{{option.name}}</option>
+            </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <a class="btn btn-success btn-large btn-bez btn-bez-lg" ng-class="{'waiting': campBasicWaiting}" ng-click="updateCampBasic()">ذخیره و رفتن به توضیحات کمپین</a>
+        </div>
+    </div>
+    </form>

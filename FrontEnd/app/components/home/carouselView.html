@@ -1,0 +1,28 @@
+<script type="text/ng-template" id="customTemplate.html"> 
+    <div class="carousel-inner" ng-transclude></div>
+    <a role="button" href class="left carousel-control" ng-click="prev()" ng-class="{ disabled: isPrevDisabled() }" ng-show="slides.length > 1">
+      <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+
+      <span class="sr-only">previous</span>
+    </a>
+    <a role="button" href class="right carousel-control" ng-click="next()" ng-class="{ disabled: isNextDisabled() }" ng-show="slides.length > 1">
+     <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+      <span class="sr-only">next</span>
+    </a>
+    <ol class="carousel-indicators" ng-show="slides.length > 1">
+      <li ng-repeat="slide in slides | orderBy:indexOfSlide track by $index" ng-class="{ active: isActive(slide) }" ng-click="select(slide)">
+        <span class="sr-only">slide {{ $index + 1 }} of {{ slides.length }}<span ng-if="isActive(slide)">, currently active</span></span>
+      </li>
+    </ol>
+</script>
+
+<div style="height: 305px; overflow: hidden;">
+    <div uib-carousel active="1" interval="interval" no-wrap="" template-url="customTemplate.html">
+      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+        <img ng-src="{{slide.image}}" style="margin:auto">
+        <div class="carousel-caption">
+          <div ng-bind-html="slide.html | xlat" ng-style="{'color': slide.textColor, 'background': slide.backColor}"></div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,54 @@
+<div id="camp-details" class="container" ng-show="campaign.id">
+    <div class="row campaign-title">
+        <h1>{{campaign.title}}</h1>
+    </div>
+    <div class="row campaign-loc-cat">
+        <div class="col-sm-6">
+            <div class="campaignHeaderBasics-location-name"><i class="fa fa-map-marker" aria-hidden="true"></i> {{campaign.city}} </div>
+        </div>
+        <div class="col-sm-6">
+            <p class="campaignHeaderBasics-category-name">{{campaign.category}}</p>
+        </div>
+    </div>
+    <div class="row campaign-basics">
+<div class="col-sm-8">
+    <img msh-show-loaded-img class="center-block img-responsive" ng-src="{{campaign.thumbnail}}" alt="Campaign Thumbnail Image">
+</div>
+<div class="col-sm-4 campaign-stats">
+    <div class="row collected-fund">
+        <div class="progress-square" ng-style="getProgressStyle(campaign.collectedFundPercent)">
+            <span class="text-center">{{campaign.collectedFundPercent}}%</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 collected-fund">
+            <div>
+                <p ng-bind-html="'_ui_key_PeopleBackedCampaign'|xlat:({'nBacked':campaign.nBacked})"></p>
+            </div>
+        </div>
+        <div class="col-xs-6 text-center">
+            <div ng-bind-html="'_ui_key_CollectedFund2'|xlat:({'collectedFund':(campaign.collectedFund | awnum:'price')})"></div>
+        </div>
+    </div>
+    <div class="row" style="padding:0px">
+<div class="text-center">
+    <div class="target-fund" ng-bind-html="'_ui_key_TargetFund2'| xlat:({'targetFund':(campaign.targetFund | awnum:'price')})">
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="row campaign-body">
+    <div class="col-sm-8">
+        <div campaign-tabs="" campaign="campaign" active="0" fixed-height="false" campaign-rewards="undefined" class="campaign-tabs"></div>
+    </div>
+    <div class="col-sm-4">
+        <div class="row reward-wrap" ng-repeat="reward in campaignRewards">
+            <div reward-template="" reward="reward" show-reward-image="true"></div>
+        </div>
+
+    </div>
+</div>
+</div>

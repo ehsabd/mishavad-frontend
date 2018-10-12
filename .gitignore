@@ -1,0 +1,6 @@
+.vscode/
+git_clones/
+run-gulp.bat
+run-ws.bat
+node_modules/
+FrontEnd/.idea/

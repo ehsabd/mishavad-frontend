@@ -1,0 +1,96 @@
+<div id="grid-gallery" class="row grid-gallery" ng-class="{'slideshow-open' : slideShow.open}">
+    <section class="grid-wrap">
+        <ul class="grid">
+            <li class="grid-sizer"></li>
+            <!-- for Masonry column width -->
+            <li ng-repeat="camp in campaigns" class="campaign-tile">
+                <figure ng-click="openSlideShow($index)">
+                    <div ng-if="camp.thumbnail" style="height:200px; overflow:hidden;">
+                        <img msh-show-loaded-img class="img-responsive" ng-src="{{camp.thumbnail}}" alt="Campaign Thumbnail Image">
+                    </div>
+                    <figcaption>
+                        <div id="campaign_{{camp.id}}">
+
+                            <div class="primary">
+                                <h2 class="campaign-title row">
+                                        {{camp.title}}
+                                </h2>
+                                <div class="tagline">
+                                    <p>
+                                        {{camp.tagline}}
+                                    </p>
+                                </div>
+                                <div class="campaign-tags row" style="padding-bottom:5px">
+                                    <span class="col-xs-6 category text-center">
+                                                {{camp.category}}
+                                    </span>
+                                    <span class="col-xs-6 stage text-center">
+                                                {{camp.projectStage}}
+                                    </span>
+                                </div>
+
+                                <div class="progress-container">
+                                    <div class="row">
+                                        <div class="collected-wrap col-xs-6">
+                                            <div class="collected-fund">
+                                                <p ng-bind-html="'_ui_key_CollectedFundOnly'|xlat:({'collectedFund':(camp.collectedFund | awnum:'price')})"></p>
+                                            </div>
+                                        </div>
+                                        <div class="progress-wrap">
+                                            <uib-progressbar class="active" value="camp.collectedFundPercent">{{camp.collectedFundPercent}}%
+                                            </uib-progressbar>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="time-left">
+                                        <i class="fa" ng-class="getHourglass(camp)" aria-hidden="true"></i>
+                                        <span ng-bind-html="'_ui_key_TimeLeft' | xlat:({'readableTimeLeft':(camp.totalSecondsLeft | readableTimeFa)})"></span>
+                                    </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--<div style="clear:both;"></div>-->
+                        </div>
+
+                    </figcaption>
+
+                </figure>
+            </li>
+        </ul>
+    </section>
+    <!-- // grid-wrap -->
+    <section class="slideshow" ng-swipe-right="prevSlide()" ng-swipe-left="nextSlide()">
+        <ul class="animatable">
+            <li cbp-grid-gallery-repeat ng-repeat="camp in campaigns" id="slide_{{$index}}" ng-class="{'current show':slideShow.currentIndex==$index, 'show': ($index==slideShow.currentIndex-1) || ($index==slideShow.currentIndex+1)}">
+                <figure>
+                    <h3 class="camp-title">
+                            {{camp.title}}
+                            <a href="/campaigns/{{camp.id}}" class="btn btn-camp-page">صفحه اختصاصی کمپین</a>
+                            <a href="/campaigns/{{camp.id}}/contribute" class="btn-msh btn" ng-bind="'_ui_key_Contribute'|xlat"></a>
+                        </h3>
+                    <div ng-show="camp.thumbnail" class="camp-img-wrapper">
+                        <img  class="img-responsive camp-img" ng-src="{{camp.thumbnail}}" alt="{{camp.title}}">
+                    </div>
+                    <!--<figcaption>
+                            <a href="/campaigns/{{camp.id}}" class="btn btn-success">اطلاعات بیشتر</a>
+                            <img ng-if="camp.thumbnail!=''" ng-src="{{camp.thumbnail}}" alt="Campaign Thumbnail Image" width="200" height="160">
+                            <a href="/campaigns/{{camp.id}}/contribute" class="contribute btn" ng-bind="'_ui_key_Contribute'|xlat"></a>
+                        </figcaption>-->
+
+                    <!--TODO: Add img to this slideshow in a stylish way
+                            <div class="img" style="background-image: url({{camp.thumbnail.FilePath}})">
+                            </div>-->
+                    <div campaign="camp" campaign-tabs="" fixed-height="true" campaign-rewards="currentCampaignRewards" active="slideShow.activeTabIndex"></div>
+                </figure>
+            </li>
+
+        </ul>
+        <nav>
+            <span class="icon nav-prev" ng-click="prevSlide()" ng-show="slideShow.currentIndex > 0"></span>
+            <span class="icon nav-next" ng-click="nextSlide()" ng-show="slideShow.currentIndex < campaigns.length - 1"></span>
+            <span class="icon nav-close" ng-click="closeSlideShow()"></span>
+        </nav>
+    </section>
+</div>
+<!-- // slideshow -->

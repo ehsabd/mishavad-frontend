@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html ng-controller="MainController">
+
+<head>
+    <!-- So that our theme works on iPhone, android, everything!-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title ng-bind="pageTitle"></title>
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+<link rel="stylesheet" href="/FrontEnd/assets/css/bootstrap.min.css" type="text/css">
+<!--NOTE: bootstrap-rtl will be loaded for IR country code only in the script implementing LAB.js see the bottom of the webpage-->
+<link rel="stylesheet" href="/FrontEnd/assets/css/blueprint-component.css" type="text/css">
+<link rel="stylesheet" href="/FrontEnd/assets/css/croppie.css" type="text/css">
+<link rel="stylesheet" href="/FrontEnd/assets/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="/FrontEnd/assets/css/animate.min.css" type="text/css">
+<link rel="stylesheet" href="/FrontEnd/assets/css/Site.css" type="text/css">
+
+<base href="/">
+
+</head>
+
+<body ng-class="{'before-modal-open': beforeModalOpen, 'slideshow-open':isSlideShowOpen}">
+    <div class="page-container" ng-cloak>
+        <!--
+    <div class="alert alert-warning">
+        <strong>توجه!</strong> این وبسایت آزمایشی است و هیچ یک از محتواها یا سرویس های آن در حال حاضر واقعی نیست.
+    </div>-->
+        <header>
+
+            <div msh-scrolly-after msh-navigation ng-class="{'navbar-mini':scrollyAfter}" class="msh-navbar navbar navbar-fixed-top row"
+                ng-init="isNavCollapsed=true">
+
+            </div>
+
+        </header>
+        <section>
+            <div class="body-content">
+                <div id="mshview" ng-view class="{{currentClass()}}"></div>
+            </div>
+        </section>
+        <footer class="msh-footer" msh-footer ng-cloak>
+        </footer>
+    </div>
+    <!--NOTE: We can not set aside jQuery 
+    <!--jQuery-->
+    <!--  <script src="/FrontEnd/assets/libs/jquery-1.12.4.min.js"></script>-->
+    
+   
+
+<!-- TODO: Add admin controller to fetch admin iframe from API 
+<script src="app/components/admin/adminController.js"></script>
+
+-->
+    <!-- NOTE: We always load controller first because we define the module and its dependencies there
+
+TODO:fix this for gulp automation-->
+
+
+
+    
+    <script src="/FrontEnd/assets/libs/LAB.min.js?_12345="></script>
+
+    <script>
+        $LAB
+        .script("/FrontEnd/angular/angular.min.js")
+        .script("/FrontEnd/angular/angular-cookies.min.js")
+        .script("/FrontEnd/angular/angular-resource.min.js")
+        .script("/FrontEnd/angular/angular-route.min.js")
+        .script("/FrontEnd/angular/angular-sanitize.min.js")
+        .script("/FrontEnd/angular/angular-animate.min.js")
+        .script("/FrontEnd/angular/angular-touch.min.js")
+        .script("/FrontEnd/angular/angular-messages.min.js")
+        .script("/FrontEnd/assets/libs/ui-bootstrap-tpls-2.2.0.min.js") /* Angular UI */
+        .script("/FrontEnd/assets/libs/ng-wig.js") /*Non-minified, modified!*/
+        .script("/FrontEnd/assets/libs/formats.ngWig.min.js")
+        .script("/FrontEnd/angular/iPersian.js")
+        .script("/FrontEnd/assets/libs/dynamic-number.js")
+        .script("/FrontEnd/assets/libs/angular-readable-time.fa.js")
+        .script("/FrontEnd/assets/libs/modernizr-2.6.2.js")
+        .script("/FrontEnd/assets/libs/masonry.pkgd.min.js")
+        .wait(function(){
+            //TODO add country code here
+            /*                
+            if (countryCode=="IR"){
+                var link = document.createElement("link");
+                link.setAttribute("rel","stylesheet");
+                link.setAttribute("type","text/css");
+                link.setAttribute("href","/FrontEnd/assets/css/bootstrap-rtl.css");
+                document.getElementsByTagName("head")[0].appendChild(link);
+            }*/
+            $LAB.setOptions({CacheBust:true})
+            .script("/FrontEnd/main.js")
+            .wait(function(){
+                angular.bootstrap(document, ['app']);
+            });   
+        });
+    </script>
+
+</body>
+
+</html>

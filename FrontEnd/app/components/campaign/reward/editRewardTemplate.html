@@ -1,0 +1,79 @@
+<div class="modal-header">
+    <h3 class="modal-title">ویرایش پاداش</h3>
+    <a class="fa fa-times fa-2x close" ng-click="dismissModal()"></a>
+</div>
+<div class="modal-body">
+    <!--TODO: Add classes like login-wrapper-->
+    <div class="edit-reward-wrapper container-fluid">
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>{{'_ui_key_RewardName' | xlat}}</label>
+                <input type="text" class="form-control" ng-model="reward.title" placeholder="نام" value="">
+            </div>
+            <div class="col-md-6 form-group">
+                <label>{{'_ui_key_GiftAmount' | xlat}}</label>
+                <input type="text" class="form-control" ng-model="reward.amount" placeholder="تومان">
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Reward Image -->
+            <div class="form-group image-editor-container col-md-6" ng-class="{'edit-mode': imageEditMode==true}">
+                <label>تصویر پاداش <span class="fa fa-question-circle fa-lg"></span> </label>
+                <div img-crop class="img-crop" area-min-size="{width:285, height:200}"  image="reward.newImage || reward.imagePath" result-image-format="image/jpeg" result-image-ratio="1"
+                result-image-quality=".8" result-image="reward.base64Image">
+                    
+                </div>
+             
+                 <label class="btn btn-primary btn-image-input">	تغییر تصویر 
+                    <input type="file" class="file-input" img-file-input file-input-loaded="fileInputLoaded(imageData)" ></label>
+                <button type="button" class="btn btn-primary btn-edit-img" ng-click="$broadcast('EnterCropEditModeEvent', imageEditMode=true )"> ویرایش</button>
+            </div>
+            <!--Reward Image  -->
+            <div class="form-group col-md-6">
+                <label>{{'_ui_key_RewardDesc' | xlat}}</label>
+                <textarea ng-required="" rows="4" maxlength="100" required class="form-control" ng-model="reward.description"></textarea>
+                <div class="description-length">
+                    تعداد کاراکتر {{100-reward.Description.length}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label>{{'_ui_key_RewardDeliveryDays' | xlat}}</label>
+                <input type="text" class="form-control" ng-model="reward.deliveryDays" placeholder="روز">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label>{{'_ui_key_RewardNAvailable' | xlat}}</label>
+                <input type="text" class="form-control" ng-model="reward.nAvailable" placeholder="عدد">
+            </div>
+        </div>
+    </div>
+
+
+    <!--TODO add other elements-->
+    <div uib-alert class="alert-danger" ng-bind="alertMessage | xlat" ng-show="showAlert"></div>
+</div>
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-default btn-bez btn-bez-md" type="submit" ng-class="{'waiting': isWaiting}" ng-click="submitReward()">{{'_ui_key_Save' | xlat}}</button>
+</div>
+
+<!--
+<div class="h3 amount">{{content.amount| seprate}}
+    <label ng-bind="'_ui_key_Toman'|xlat"></label>
+</div>
+<h3 class="">{{content.title}}</h3>
+<p class="">{{content.description}}</p>
+<p class=""><label ng-bind="'reward_accept_time_fa'|xlat"></label> {{content.estimatedDeliveryDateUtc | pDate}}
+</p>
+<p class="" ng-if="!hideNClaimed">
+    <span class="label label-info">{{content.nClaimed}}</span>
+    <label ng-bind="'reward_accept_count_fa'|xlat"></label>
+</p>
+<p class=""><label ng-bind="'reward_Stock_fa'|xlat"></label>{{content.nAvailable}} <label ng-bind="'reward_Stock_count_unit_fa'|xlat"></label>
+</p>-->

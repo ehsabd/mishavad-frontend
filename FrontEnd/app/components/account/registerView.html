@@ -1,0 +1,45 @@
+﻿<!--
+TODO: add a graphical password strength check
+-->
+<form>
+<div class="modal-header">
+            <h3 class="modal-title" ng-bind-html="'_ui_key_RegisterTitle' | xlat"></h3>
+</div>
+<div class="modal-body">
+                    <div class="register-wrapper container-fluid" >
+                    <div class="register-input-form" ng-show="!showSuccess">
+                    <div class="row">
+                         <div class="col-md-6 form-group ">
+                            <label>{{'_ui_key_FirstName' | xlat}}</label>
+                            <input type="text" class="form-control" ng-model="registerModel.firstName">
+                        </div>    
+                        <div class="col-md-6 form-group ">
+                            <label>{{'_ui_key_LastName' | xlat}}</label>
+                            <input type="text" class="form-control" ng-model="registerModel.lastName">
+                        </div>       
+                    </div>    
+                        <div class="form-group">
+                                <label>{{'_ui_key_Email' | xlat}}</label>
+                                <div class="right-inner-addon">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    <input type="text" class="form-control" ng-model="registerModel.email" placeholder="Email" value="">
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{'_ui_key_Password' | xlat}}</label>
+                            <input type="password" class="form-control" ng-model="registerModel.password" placeholder="Password">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>{{'_ui_key_ConfirmPassword' | xlat}}</label>
+                            <input type="password" class="form-control" ng-model="registerModel.confirmPassword" placeholder="Password">
+                        </div>
+                        </div>
+                        <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + alert.type" close="closeAlert($index)" ng-bind-html="alert.msg | xlat">
+                        </div>
+                    </div>              
+</div>
+<div class="modal-footer">
+     <button class="register-btn btn btn-default btn-bez btn-bez-sm" type="submit" ng-show="!showSuccess" ng-class="{'waiting': isWaiting}" ng-click="submitRegister()" >{{'_ui_key_Register' | xlat}}</button>
+</div>
+</form>

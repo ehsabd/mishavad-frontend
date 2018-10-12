@@ -1,0 +1,51 @@
+<div id="edit-camp-page" class="">
+	<div class="well" ng-if="isLoggedIn==false">
+		<p ng-bind-html="'_ui_key_EditCampaignLoginNotice' | xlat">
+		</p>
+		<p>
+			لطفا برای
+			<span ng-show="pageProps.campaignId">
+			ویرایش </span>
+			<span ng-hide="pageProps.campaignId">ایجاد
+				</span> کمپین به حساب کاربری خود
+			<a ng-click="openLogin();">
+        وارد شوید
+      </a>
+		</p>
+	</div>
+	<div ng-if="isLoggedIn">
+		<div class="box-alert">
+			<div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + alert.type" close="closeAlert($index)">{{alert.msg}}
+				<a ng-if="alert.promiseFunc" class="btn btn-link" ng-click="tryAgain($index, alert.promiseFunc())">دوباره آپدیت کن</a>
+			</div>
+		</div>
+		<div class="corner-alert">
+			<div uib-alert ng-if="v.isDirty && v.isDeselected" ng-repeat="(k,v) in dirtyForms" ng-class="'alert-' + v.type" close="closeCornerAlert(k)">{{v.msg}}
+			</div>
+		</div>
+	
+			<uib-tabset active="pageProps.activeTab " ng-class="{ 'has-alerts': alerts.length, 'new-campaign':newCampaign,
+						'has-camp-id':pageProps.campaignId} ">
+				<uib-tab index="0" heading="{{ '_ui_key_BasicTabHeading' | xlat}} " select="tabSelected($event, 'basic') " deselect="tabDeselected($event, 'basic') ">
+					<div edit-campaign-basic class="camp-basic container-fluid ">
+					</div>
+				</uib-tab>
+				<uib-tab index="1" heading="{{ '_ui_key_StoryTabHeading' | xlat}}" select="tabSelected($event, 'story') " deselect="tabDeselected($event, 'story') ">
+					<div edit-campaign-story class="container-fluid ">
+					</div>
+				</uib-tab>
+				<uib-tab index="2" heading="{{ '_ui_key_RewardsTabHeading' | xlat}} ">
+					<div edit-campaign-rewards class="edit-camp-rewards container-fluid ">
+					</div>
+				</uib-tab>
+				<uib-tab index="3" heading="{{ '_ui_key_DocumentsTabHeading' | xlat}} ">
+					<div edit-campaign-upload-docs class="container-fluid ">
+					</div>
+				</uib-tab>
+				<uib-tab index="4" heading="{{ '_ui_key_ReviewTabHeading' | xlat}} " classes="edit-camp-review">
+					<div edit-campaign-review class="container-fluid ">
+					</div>
+				</uib-tab>
+			</uib-tabset>
+	</div>
+</div>

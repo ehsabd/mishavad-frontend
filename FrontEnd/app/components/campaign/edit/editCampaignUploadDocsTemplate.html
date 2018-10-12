@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-6">
+        <h2> 
+            مدارک هویتی پروژه آفرین
+            (تصویر)
+        </h2>
+        <doc-table docs="userDocQueryInstance"></doc-table>
+        <form name="uploadUserDocForm" ng-submit="uploadDoc('userDoc')">
+            <div img-crop class="img-crop" image="newUserDocument._src" result-image-format="image/jpeg" result-image-ratio="1" result-image-quality=".8"
+                result-image="newUserDocument.base64Image">
+            </div>
+            <label class="btn btn-primary btn-image-input">انتخاب تصویر 
+                    <input type="file" class="file-input" img-file-input file-input-loaded="newUserDocument._src = imageData" ></label>
+
+            <div class="row">
+                <div class="form-group" <label>توضیحات مدرک </label>
+                    <div>
+                        <textarea class="form-control" name="description" required ng-model="newUserDocument.description"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div uib-alert class="alert-warning" ng-messages="uploadUserDocForm.description.$error" role="alert">
+                <div ng-message="required">لطفا توضیحات مربوط به مدرک را وارد کنید</div>
+            </div>
+            <button type="submit" class="btn btn-bez btn-bez-sm btn-primary" ng-class="{'waiting':newUserDocument._isWaiting}">آپلود
+            </button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <h2> مدارک کمپین (تصویر)
+            </h2>
+            <doc-table docs="campaignDocQueryInstance"></doc-table>
+
+            <div img-crop class="img-crop" image="newCampaignDocument._src" result-image-format="image/jpeg" result-image-ratio="1" result-image-quality=".8"
+                result-image="newCampaignDocument.base64Image">
+            </div>
+            <label class="btn btn-primary btn-image-input">انتخاب تصویر 
+                    <input type="file" class="file-input" img-file-input file-input-loaded="newCampaignDocument._src = imageData" ></label>
+        </div>
+        <div class="row">
+            <label>توضیحات مدرک </label>
+            <div>
+                <textarea class="form-control" name="description" required ng-model="newCampaignDocument.description"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <label class="btn btn-bez btn-bez-sm btn-primary" ng-class="{'waiting':newCampaignDocument._isWaiting}" ng-click="uploadDoc('campaignDoc')">آپلود
+                    </label>
+        </div>
+    </div>
+</div>
